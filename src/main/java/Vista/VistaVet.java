@@ -76,7 +76,7 @@ public class VistaVet extends javax.swing.JFrame {
         jTabbedPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), java.awt.Color.lightGray));
         jTabbedPane2.setFont(new java.awt.Font("Muli", 1, 14)); // NOI18N
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(198, 224, 250));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         jLabel1.setText("Cédula:");
@@ -147,7 +147,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Clientes", jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel4.setBackground(new java.awt.Color(198, 224, 250));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         jLabel4.setText("Cédula dueño:");
@@ -277,6 +277,8 @@ public class VistaVet extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Mascotas", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(198, 224, 250));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
