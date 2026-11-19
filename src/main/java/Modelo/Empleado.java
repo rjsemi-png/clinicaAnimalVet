@@ -13,7 +13,7 @@ public class Empleado extends Persona{
     private String contrasena;
     private String rol;
     
-    public Personal(String cedula, String nombre, String telefono, String direccion, String usuario, String contrasena, String rol){
+    public Empleado(String cedula, String nombre, String telefono, String direccion, String usuario, String contrasena, String rol){
         super(cedula, nombre, telefono, rol);
         this.usuario = usuario;
         this.contrasena = contrasena;
