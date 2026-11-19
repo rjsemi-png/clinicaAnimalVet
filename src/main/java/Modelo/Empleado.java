@@ -8,7 +8,7 @@ package Modelo;
  *
  * @author eduar
  */
-public class Personal extends Persona{
+public class Empleado extends Persona{
     private String usuario;
     private String contrasena;
     private String rol;
