@@ -9,14 +9,10 @@ package Modelo;
  * @author eduar
  */
 public class Empleado extends Persona{
-    private String usuario;
-    private String contrasena;
     private String rol;
     
-    public Empleado(String cedula, String nombre, String telefono, String direccion, String usuario, String contrasena, String rol){
-        super(cedula, nombre, telefono, rol);
-        this.usuario = usuario;
-        this.contrasena = contrasena;
+    public Empleado(String cedula, String nombre, String telefono, String direccion,String rol){
+        super(cedula, nombre, telefono, direccion);
         this.rol = rol;
     }
     

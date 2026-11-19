@@ -24,4 +24,12 @@ public class Cliente extends Persona{
     public boolean tieneBeneficio(){
         return false;
     }
+    
+    public boolean eliminar(Mascota m){
+        return false;
+    }
+    
+    public List<Mascota> getMascota(){
+        return new ArrayList<>(mascotas);
+    }
 }
