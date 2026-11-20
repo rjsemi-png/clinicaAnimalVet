@@ -6,7 +6,6 @@ public abstract class Mascota {
     private String id;
     private int edad;
     private double peso;
-    private String tipo;
     private HistorialClinico historialclinico;
     
     public Mascota(String nombre, String id, int edad, double peso, String tipo, HistorialClinico historialclinico){
@@ -14,8 +13,7 @@ public abstract class Mascota {
         this.id = id;
         this.edad = edad;
         this.peso = peso;
-        this.tipo = tipo;
-        this.historialclinico = historialclinico;
+        this.historialclinico = new HistorialClinico();
     }
     
     public String getId(){
@@ -30,10 +28,7 @@ public abstract class Mascota {
         return tarifaBase;
     }
     
-    public String getTipo(){
-        //en UML dice abstract averiguar porque
-        return tipo;
-    }
+    public abstract String getTipo();
     
     
     
