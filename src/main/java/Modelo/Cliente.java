@@ -10,8 +10,8 @@ public class Cliente extends Persona{
         super(cedula, nombre, telefono, direccion);
     }
     
-    public void agregarMascota(Mascota v){
-        mascotas.add(v);
+    public void agregarMascota(Mascota m){
+        mascotas.add(m);
     }
     
     public boolean tieneBeneficio(){

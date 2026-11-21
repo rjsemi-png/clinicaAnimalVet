@@ -11,7 +11,7 @@ public class MascotaConvencional extends Mascota{
     private String raza;
     private List<Vacuna> vacunas;
     
-    public MascotaConvencional(String nombre, String id, int edad, double peso, String raza, List<Vacuna> vacunas){
+    public MascotaConvencional(String nombre, String id, int edad, double peso, String raza){
         super(nombre, id, edad, peso);
         this.raza = raza;
         this.vacunas = new ArrayList<>();
@@ -25,5 +25,9 @@ public class MascotaConvencional extends Mascota{
     @Override
     public String getTipo(){
         return "Convencional";
+    }
+    
+    public void agregarVacuna(Vacuna v){
+        vacunas.add(v);
     }
 }
