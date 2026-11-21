@@ -38,8 +38,8 @@ public class Consulta {
          if (mascota instanceof MascotaConvencional) {
         for (Vacuna vacuna : vacunasAplicadas) {
             costoVacunas += vacuna.getCosto();
+            }
         }
-    }
         
         //Sedacion en mascotas exoticas
         if(mascota instanceof MascotaExotica exotica){
@@ -49,8 +49,7 @@ public class Consulta {
         }
         
         //Subtotal
-        double subtotal = tarifaBase + costoVacunas
-                    + recargo + costoSedacion;;
+        double subtotal = tarifaBase + costoVacunas + recargo + costoSedacion;
         
         //Descuento del 10% por tener mas de dos mascotas
         double descuento = 0;
