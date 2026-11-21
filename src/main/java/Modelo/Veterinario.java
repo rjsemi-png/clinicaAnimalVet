@@ -6,7 +6,7 @@ public class Veterinario extends Empleado{
     private String numTarjetaProfesional;
     
     public Veterinario(String cedula, String nombre, String telefono, String direccion, String rol, String especialidad, String numTarjetaProfesional){
-        super(cedula, nombre, telefono, direccion, rol);
+        super(cedula, nombre, telefono, direccion, "Veterinario");
         this.especialidad = especialidad;
         this.numTarjetaProfesional = numTarjetaProfesional;
     }

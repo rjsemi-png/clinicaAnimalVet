@@ -8,7 +8,7 @@ public abstract class Mascota {
     private double peso;
     private HistorialClinico historialclinico;
     
-    public Mascota(String nombre, String id, int edad, double peso, String tipo, HistorialClinico historialclinico){
+    public Mascota(String nombre, String id, int edad, double peso){
         this.nombre = nombre;
         this.id = id;
         this.edad = edad;

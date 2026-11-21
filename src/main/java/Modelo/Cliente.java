@@ -15,14 +15,14 @@ public class Cliente extends Persona{
     }
     
     public boolean tieneBeneficio(){
-        return false;
+        return mascotas.size() > 2;
     }
     
-    public boolean eliminar(Mascota m){
-        return false;
+    public boolean eliminarMascota(Mascota m){
+        return mascotas.remove(m);
     }
     
-    public List<Mascota> getMascota(){
+    public List<Mascota> getMascotas(){
         return new ArrayList<>(mascotas);
     }
 }

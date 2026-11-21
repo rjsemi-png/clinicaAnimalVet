@@ -5,7 +5,7 @@ public class MascotaExotica extends Mascota{
     private boolean requiereSedacion;
     
     public MascotaExotica(String nombre, String id, int edad, double peso, String permisoCITES, boolean requiereSedacion){
-        super(nombre, id, edad, peso, "Exotica", new HistorialClinico());
+        super(nombre, id, edad, peso);
         this.permisoCITES = permisoCITES;
         this.requiereSedacion = requiereSedacion;
     }

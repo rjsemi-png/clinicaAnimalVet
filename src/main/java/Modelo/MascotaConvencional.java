@@ -12,7 +12,7 @@ public class MascotaConvencional extends Mascota{
     private List<Vacuna> vacunas;
     
     public MascotaConvencional(String nombre, String id, int edad, double peso, String raza, List<Vacuna> vacunas){
-        super(nombre, id, edad, peso, "Convencional", new HistorialClinico());
+        super(nombre, id, edad, peso);
         this.raza = raza;
         this.vacunas = new ArrayList<>();
     }
