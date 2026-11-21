@@ -14,10 +14,10 @@ public class Consulta {
     private List<Vacuna> vacunasAplicadas;
     private String diagnostico;
     
-    public Consulta(LocalDate fecha, String diagnostico, Veterinario v){
+    public Consulta(LocalDate fecha, String diagnostico, Veterinario veterinario){
         this.fecha = fecha;
         this.diagnostico = diagnostico;
-        this veterinario = veterinario;
+        this.veterinario = veterinario;
         
     }
     
