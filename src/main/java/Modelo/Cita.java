@@ -1,15 +1,15 @@
 package Modelo;
 
-import java.util.LocalData;
+import java.time.LocalDateTime;
 
 public class Cita {
-    private LocalDataTime fechaHora;
+    private LocalDateTime fechaHora;
     private Mascota mascota;
     private Veterinario veterinario;
     private String estado;
     private int duracionMinutos = 20;
     
-    public Cita(LocalDataTime fechaHora, Mascota m, Veterinario v){
+    public Cita(LocalDateTime fechaHora, Mascota mascota, Veterinario veterinario){
         this.fechaHora = fechaHora;
         this.mascota = mascota;
         this.veterinario = veterinario;

@@ -11,8 +11,8 @@ public class HistorialClinico {
     
     public HistorialClinico(){}
     
-    public void agregarConsulta(Consulta c){
-        consultas.add(c);
+    public void agregarConsulta(Consulta consulta){
+        consultas.add(consulta);
     }
     
     public List<Consulta> obtenerConsultas(){

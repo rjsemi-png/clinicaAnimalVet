@@ -16,8 +16,8 @@ public class MascotaExotica extends Mascota{
     
     @Override
     public double calcularRecargo(double tarifaBase){
-        tarifaBase += tarifaBase *0.25;
-        return tarifaBase;
+        
+        return tarifaBase*0.25;
     }
     
     @Override
