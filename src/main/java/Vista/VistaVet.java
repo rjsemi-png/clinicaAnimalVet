@@ -83,6 +83,11 @@ public class VistaVet extends javax.swing.JFrame {
         txtNotasMedicas = new javax.swing.JTextField();
         btnRegistrarConsulta = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        txtIdMascotaHistorial = new javax.swing.JTextField();
+        btnConsultarHistorial = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        areaHistorial = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -429,7 +434,7 @@ public class VistaVet extends javax.swing.JFrame {
         jTabbedPane3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), java.awt.Color.lightGray));
         jTabbedPane3.setFont(new java.awt.Font("Muli", 1, 14)); // NOI18N
 
-        jPanel6.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel6.setBackground(new java.awt.Color(187, 204, 230));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         jLabel18.setText("ID Mascota:");
@@ -476,7 +481,7 @@ public class VistaVet extends javax.swing.JFrame {
                                     .addComponent(cbVeterinarioConsulta, 0, 163, Short.MAX_VALUE)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(jLabel20)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -484,7 +489,7 @@ public class VistaVet extends javax.swing.JFrame {
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(jLabel21)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtTratamiento))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(jLabel22)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -496,11 +501,11 @@ public class VistaVet extends javax.swing.JFrame {
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(jLabel24)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNotasMedicas, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(txtNotasMedicas, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(btnRegistrarConsulta)))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -540,15 +545,46 @@ public class VistaVet extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Registrar Consulta", jPanel6);
 
+        jPanel7.setBackground(new java.awt.Color(187, 204, 230));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel25.setText("ID Mascota:");
+
+        btnConsultarHistorial.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnConsultarHistorial.setText("Consultar historial");
+
+        areaHistorial.setEditable(false);
+        areaHistorial.setColumns(20);
+        areaHistorial.setRows(5);
+        jScrollPane2.setViewportView(areaHistorial);
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtIdMascotaHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConsultarHistorial)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(txtIdMascotaHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarHistorial))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Historial Clínico", jPanel7);
@@ -629,7 +665,9 @@ public class VistaVet extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areaComprobante;
+    private javax.swing.JTextArea areaHistorial;
     private javax.swing.JButton btnAgendarCita;
+    private javax.swing.JButton btnConsultarHistorial;
     private javax.swing.JButton btnGenerarComprobante;
     private javax.swing.JButton btnRegistrarCliente;
     private javax.swing.JButton btnRegistrarConsulta;
@@ -656,6 +694,7 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -671,6 +710,7 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabPanel;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -686,6 +726,7 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdMascota;
     private javax.swing.JTextField txtIdMascotaCita;
     private javax.swing.JTextField txtIdMascotaConsulta;
+    private javax.swing.JTextField txtIdMascotaHistorial;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreMascota;
     private javax.swing.JTextField txtNotasMedicas;
