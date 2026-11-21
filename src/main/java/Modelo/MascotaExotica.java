@@ -11,8 +11,12 @@ public class MascotaExotica extends Mascota{
     }
     
     public boolean validarPermiso(){
+        if(permisoCITES != null && !permisoCITES.isBlank()){
+            return true;
+        }
         return false;
     }
+    
     
     @Override
     public double calcularRecargo(double tarifaBase){
@@ -24,4 +28,9 @@ public class MascotaExotica extends Mascota{
     public String getTipo(){
         return "Exotica";
     }
+    
+    public boolean isRequiereSedacion() {
+        return requiereSedacion;
+    }
+
 }

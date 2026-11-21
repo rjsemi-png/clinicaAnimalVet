@@ -247,9 +247,9 @@ public class VistaVet extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRazaMascota)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtPesoMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEdadMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtEdadMascota, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                                    .addComponent(txtPesoMascota))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel12)
@@ -599,7 +599,7 @@ public class VistaVet extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jTabPanel.addTab("Veterinario", jPanel2);
@@ -745,13 +745,28 @@ public class VistaVet extends javax.swing.JFrame {
         if ("Exotica".equals(tipoMascota) && permisoCITES.isBlank()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe el permiso CITES obligatorio de la mascota.");
             return;
-        }
-        
-        
-        
+        }   
     }//GEN-LAST:event_btnRegistrarMascotaActionPerformed
     
-    //datos seccion mascota
+    //DATOS SECCION CLIENTES
+    public String getCedulaCliente(){
+        return txtCedulaCliente.getText();
+    }    
+    
+    public String getNombreCliente(){
+        return txtNombreCliente.getText();
+    }
+    
+    public String getTelefonoCliente(){
+        return txtTelefonoCliente.getText();
+    }
+    
+    public String getDireccionCliente(){
+        return txtDireccionCliente.getText();
+    }
+    
+    
+    //DATOS SECCION MASCOTAS
     public String getCedulaDueno(){
         return txtCedulaDueno.getText();
     } 
@@ -789,24 +804,18 @@ public class VistaVet extends javax.swing.JFrame {
         return chkSedacion.isSelected();
     }
     
+    //DATOS SECCION CITAS Y COBRO
+    
+    public String getIdMascotaCita(){
+        return txtIdMascotaCita.getText();
+    } 
     
     
-    //datos del cliente
-    public String getCedulaCliente(){
-        return txtCedulaCliente.getText();
-    }    
     
-    public String getNombreCliente(){
-        return txtNombreCliente.getText();
-    }
     
-    public String getTelefonoCliente(){
-        return txtTelefonoCliente.getText();
-    }
     
-    public String getDireccionCliente(){
-        return txtDireccionCliente.getText();
-    }
+    
+    
     
     
     public static void main(String args[]) {

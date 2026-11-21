@@ -60,7 +60,7 @@ public class Consulta {
         
         double total = subtotal - descuento;
         
-        return new Cobro(tarifaBase, costoVacunas, costoSedacion, recargo, descuento, total);
+        return new Cobro(tarifaBase, costoVacunas + costoSedacion + recargo,descuento, total);
     }
     
     
