@@ -6,14 +6,14 @@ public abstract class Mascota {
     private String id;
     private int edad;
     private double peso;
-    private HistorialClinico historialclinico;
+    private HistorialClinico historial;
     
     public Mascota(String nombre, String id, int edad, double peso){
         this.nombre = nombre;
         this.id = id;
         this.edad = edad;
         this.peso = peso;
-        this.historialclinico = new HistorialClinico();
+        this.historial = new HistorialClinico();
     }
     
     public String getId(){
@@ -21,14 +21,14 @@ public abstract class Mascota {
     }
     
     public HistorialClinico getHistorial(){
-        return historialclinico;
+        return historial;
     }
     
-    public double calcularRecargo(double tarifaBase){
-        return tarifaBase;
-    }
+    public abstract double calcularRecargo(double tarifaBase);
+    
     
     public abstract String getTipo();
+    
     
     
     

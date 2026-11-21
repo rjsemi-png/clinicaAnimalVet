@@ -58,9 +58,9 @@ public class Consulta {
             descuento = subtotal * 0.10;
         }
         
-        double total = subtotal - descuento;
         
-        return new Cobro(tarifaBase, costoVacunas, costoSedacion, recargo, descuento, total);
+        return new Cobro(tarifaBase, costoVacunas, costoSedacion, recargo, descuento);
+            
     }
     
     
