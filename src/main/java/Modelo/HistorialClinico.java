@@ -7,11 +7,12 @@ import java.util.ArrayList;
 public class HistorialClinico {
     private LocalDate fechaCreacion;
     private List<Consulta> consultas;
+    private Consulta consulta;
     
     public HistorialClinico(){}
     
     public void agregarConsulta(Consulta c){
-        
+        consultas.add(c);
     }
     
     public List<Consulta> obtenerConsultas(){

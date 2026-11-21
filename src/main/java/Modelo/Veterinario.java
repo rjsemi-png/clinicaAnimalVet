@@ -15,10 +15,10 @@ public class Veterinario extends Empleado{
     }
     
     public Consulta registrarConsulta(Cita cita, String diagnostico, String tratamiento, String notasMedicas){
-        return Consulta;
+        return consultas;
     }
     
     public HistorialClinico consultarHistorial(Mascota m){
-        return HistorialClinico;
+        return historialclinico;
     }
 }
