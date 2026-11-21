@@ -117,6 +117,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         btnRegistrarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegistrarCliente.setText("Registrar Cliente");
+        btnRegistrarCliente.addActionListener(this::btnRegistrarClienteActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -640,6 +641,50 @@ public class VistaVet extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_cbTipoMascotaActionPerformed
 
+    private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
+        String cedula = getCedulaCliente();
+        String nombre = getNombreCliente();
+        String telefono = getTelefonoCliente();
+        String direccion = getDireccionCliente();
+        
+        if (cedula.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la cédula del cliente.");
+            return;
+        }
+        
+        if (nombre.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el nombre del cliente.");
+            return;
+        }
+        
+        if (telefono.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el telefono del cliente.");
+            return;
+        }
+        
+        if (direccion.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la direccion del cliente.");
+            return;
+        }
+        
+    }//GEN-LAST:event_btnRegistrarClienteActionPerformed
+    
+    public String getCedulaCliente(){
+        return txtCedulaCliente.getText();
+    }    
+    
+    public String getNombreCliente(){
+        return txtNombreCliente.getText();
+    }
+    
+    public String getTelefonoCliente(){
+        return txtTelefonoCliente.getText();
+    }
+    
+    public String getDireccionCliente(){
+        return txtDireccionCliente.getText();
+    }
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
