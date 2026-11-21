@@ -1,22 +1,33 @@
 package Modelo;
 
+import java.time.LocalDate;
+
 
 public class Veterinario extends Empleado{
     private String especialidad;
     private String numTarjetaProfesional;
     
-    public Veterinario(String cedula, String nombre, String telefono, String direccion, String rol, String especialidad, String numTarjetaProfesional){
+    public Veterinario(String cedula, String nombre, String telefono, String direccion, String rol, String tratamiento, String notasMedicas, String especialidad, String numTarjetaProfesional){
         super(cedula, nombre, telefono, direccion, "Veterinario");
         this.especialidad = especialidad;
         this.numTarjetaProfesional = numTarjetaProfesional;
     }
     
-    public void atenderCita(Cita cita){
+    public void atenderCita(Cita cita) {
+        if (cita == null) {
+            throw new IllegalArgumentException("La cita no puede ser nula");
+    }
+
+        cita.marcarAtendida();
     }
     
     public Consulta registrarConsulta(Cita cita, String diagnostico, String tratamiento, String notasMedicas){
-        
-        return consultas;
+        Mascota mascota = cita.getMascota();
+        Consulta consulta = new Consulta(LocalDate.now(), diagnostico,
+                                        this, mascota, tratamiento, notasMedicas);
+                                        
+        mascota.getHistorial().agregarConsulta(consulta);
+        return consulta;
     }
     
     public HistorialClinico consultarHistorial(Mascota m){
