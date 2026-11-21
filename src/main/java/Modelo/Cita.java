@@ -9,7 +9,7 @@ public class Cita {
     private String estado;
     private int duracionMinutos = 20;
     
-    public Cita(LocalDateTime fechaHora, Mascota m, Veterinario v){
+    public Cita(LocalDateTime fechaHora, Mascota mascota, Veterinario veterinario){
         this.fechaHora = fechaHora;
         this.mascota = mascota;
         this.veterinario = veterinario;
