@@ -7,16 +7,19 @@ import java.util.ArrayList;
 public class HistorialClinico {
     private LocalDate fechaCreacion;
     private List<Consulta> consultas;
-    private Consulta consulta;
     
-    public HistorialClinico(){}
+    public HistorialClinico(){
+        fechaCreacion = LocalDate.now();
+        this.consultas = new ArrayList<>();
+    }
     
     public void agregarConsulta(Consulta consulta){
+        
         consultas.add(consulta);
     }
     
-    public List<Consulta> obtenerConsultas(){
-        return consultas;
+    public List<Consulta> getConsultas(){
+        return new ArrayList<>(consultas);
     }
     
 }
