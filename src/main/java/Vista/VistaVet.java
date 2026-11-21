@@ -681,20 +681,73 @@ public class VistaVet extends javax.swing.JFrame {
         String tipoMascota = getTipoMascota();
         boolean sedacion = requiereSedacion();
         
+        if (cedulaDueno.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la cedula del dueño.");
+            return;
+        }
+        
+        if (idMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el ID de la mascota.");
+            return;
+        }
+        
+        if (nombreMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el nombre de la mascota.");
+            return;
+        }
+
         if (edadMascota.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe la edad de la mascota.");
             return;
         }
         
         int edad;
-        try {
-            edad = Integer.parseInt(edadMascota);
-            } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la edad como un número entero, por ejemplo, 3.");
+            try {
+                edad = Integer.parseInt(edadMascota);
+                } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Escribe la edad como un número entero, por ejemplo, 3.");
+            return;
+            }
+        
+        if (edad < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La edad debe ser de 0 años o más.");
         return;
         }
         
-
+        if (pesoMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el peso de la mascota.");
+            return;
+        }
+        
+        double peso;
+            try {
+                peso = Double.parseDouble(pesoMascota);
+                } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Escribe el peso como un número, por ejemplo, 3.5");
+            return;
+            }
+        
+        if (peso <= 0 || !Double.isFinite(peso)) {
+            javax.swing.JOptionPane.showMessageDialog(this,"El peso debe ser mayor a 0");
+            return;
+        }
+        
+        if (tipoMascota == null || tipoMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Selecciona el tipo de mascota.");
+            return;
+        }
+ 
+        if ("Convencional".equals(tipoMascota) && razaMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la raza de la mascota.");
+            return;
+        }
+        
+        if ("Exotica".equals(tipoMascota) && permisoCITES.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el permiso CITES obligatorio de la mascota.");
+            return;
+        }
+        
+        
         
     }//GEN-LAST:event_btnRegistrarMascotaActionPerformed
     
