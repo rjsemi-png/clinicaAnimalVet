@@ -13,9 +13,28 @@ public class Cita {
         this.fechaHora = fechaHora;
         this.mascota = mascota;
         this.veterinario = veterinario;
+        this.estado = "Pendiente";
     }
     
-    public void confirmar(){}
+    public void confirmar(){
+        this.estado = "Confirmado";
+    }
     
-    public void cancelar(){}
+    public void cancelar(){
+        this.estado = "Cancelado";
+    }
+    
+    public void marcarAtendida() {
+        this.estado = "Atendida";
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
+    }
+    
+    
 }
