@@ -215,6 +215,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         btnRegistrarMascota.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRegistrarMascota.setText("Registrar Mascota");
+        btnRegistrarMascota.addActionListener(this::btnRegistrarMascotaActionPerformed);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -668,7 +669,76 @@ public class VistaVet extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnRegistrarClienteActionPerformed
+
+    private void btnRegistrarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMascotaActionPerformed
+        String cedulaDueno = getCedulaDueno();
+        String idMascota = getIdMascota();
+        String nombreMascota = getNombreMascota();
+        String edadMascota = getEdadMascota();
+        String pesoMascota = getPesoMascota();
+        String razaMascota = getRazaMascota();
+        String permisoCITES = getPermisoCITES();
+        String tipoMascota = getTipoMascota();
+        boolean sedacion = requiereSedacion();
+        
+        if (edadMascota.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la edad de la mascota.");
+            return;
+        }
+        
+        int edad;
+        try {
+            edad = Integer.parseInt(edadMascota);
+            } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la edad como un número entero, por ejemplo, 3.");
+        return;
+        }
+        
+
+        
+    }//GEN-LAST:event_btnRegistrarMascotaActionPerformed
     
+    //datos seccion mascota
+    public String getCedulaDueno(){
+        return txtCedulaDueno.getText();
+    } 
+    
+    public String getIdMascota(){
+        return txtIdMascota.getText();
+    } 
+    
+    public String getNombreMascota(){
+        return txtNombreMascota.getText();
+    }
+    
+    public String getEdadMascota(){
+        return txtEdadMascota.getText();
+    }
+    
+    
+    public String getPesoMascota(){
+        return txtPesoMascota.getText();
+    }
+    
+    public String getRazaMascota(){
+        return txtRazaMascota.getText();
+    }
+    
+    public String getPermisoCITES(){
+        return txtPermisoCITES.getText();
+    }
+    
+    public String getTipoMascota() {
+        return (String) cbTipoMascota.getSelectedItem();
+    }
+    
+    public boolean requiereSedacion() {
+        return chkSedacion.isSelected();
+    }
+    
+    
+    
+    //datos del cliente
     public String getCedulaCliente(){
         return txtCedulaCliente.getText();
     }    
