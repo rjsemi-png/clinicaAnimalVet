@@ -557,6 +557,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         btnConsultarHistorial.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnConsultarHistorial.setText("Consultar historial");
+        btnConsultarHistorial.addActionListener(this::btnConsultarHistorialActionPerformed);
 
         areaHistorial.setEditable(false);
         areaHistorial.setColumns(20);
@@ -817,10 +818,71 @@ public class VistaVet extends javax.swing.JFrame {
         String valorVacuna = getValorVacuna();
         String notasMedicas = getNotasMedicas();
         
+        if (idMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el ID de la mascota.");
+            return;
+        }
         
+        if(veterinarioConsulta == null || veterinarioConsulta.isBlank() ){
+           javax.swing.JOptionPane.showMessageDialog(this, "Seleccione el veterinario asignado a la consulta."); 
+           return;
+        }
         
+        if (diagnostico.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el diagnóstico de la consulta.");
+            return;
+        }
         
+        if (tratamiento.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el tratamiento asignado de la consulta.");
+            return;
+        }
+        
+        double valorVac = 0.0;
+        if (!nombreVacuna.isBlank() || !valorVacuna.isBlank()) {
+            
+            if (nombreVacuna.isBlank()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Escribe el nombre de la vacuna aplicada.");
+                return;
+            }
+            
+            if (valorVacuna.isBlank()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Escribe el valor de la vacuna.");
+                return;
+            }
+            
+            try {
+                valorVac = Double.parseDouble(valorVacuna);
+                } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Escriba el valor de la vacuna como un número, por ejemplo, 15500");
+                return;
+            }
+            
+            if (valorVac < 0 || !Double.isFinite(valorVac)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Escribe un valor válido para la vacuna, de 0 en adelante.");
+            return;
+            }
+            
+        }
+        
+        if (notasMedicas.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe las notas médicas de la consulta.");
+            return;
+        }
+            
     }//GEN-LAST:event_btnRegistrarConsultaActionPerformed
+
+    private void btnConsultarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarHistorialActionPerformed
+        String idMascota = getIdMascotaHistorial();
+        
+        if (idMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el ID de la mascota para verificar su historial.");
+            return;
+        }
+        
+        areaHistorial.setText("Prueba de historial para la mascota: " + idMascota);
+        
+    }//GEN-LAST:event_btnConsultarHistorialActionPerformed
     
     // R E C E P C I O N I S T A
     
@@ -935,8 +997,9 @@ public class VistaVet extends javax.swing.JFrame {
     }
     
     //Seccion Historial Clinico
-    
-    
+    public String getIdMascotaHistorial(){
+        return txtIdMascotaHistorial.getText();
+    }
     
     
     public static void main(String args[]) {
