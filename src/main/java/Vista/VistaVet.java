@@ -327,6 +327,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         btnAgendarCita.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAgendarCita.setText("Agendar Cita");
+        btnAgendarCita.addActionListener(this::btnAgendarCitaActionPerformed);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         jLabel17.setText("Hora (HH:MM):");
@@ -335,6 +336,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         btnGenerarComprobante.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnGenerarComprobante.setText("Generar Comprobante");
+        btnGenerarComprobante.addActionListener(this::btnGenerarComprobanteActionPerformed);
 
         areaComprobante.setEditable(false);
         areaComprobante.setColumns(20);
@@ -463,6 +465,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         btnRegistrarConsulta.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRegistrarConsulta.setText("Registrar consulta");
+        btnRegistrarConsulta.addActionListener(this::btnRegistrarConsultaActionPerformed);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -747,6 +750,28 @@ public class VistaVet extends javax.swing.JFrame {
             return;
         }   
     }//GEN-LAST:event_btnRegistrarMascotaActionPerformed
+
+    private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
+        String idMascota = getIdMascotaCita();
+        String veterinarioCita = getVeterinarioCita();
+        String fechaCita = getFechaCita();
+    }//GEN-LAST:event_btnAgendarCitaActionPerformed
+
+    private void btnGenerarComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarComprobanteActionPerformed
+        String consultaSeleccionada = getConsultaCobro();
+        
+        if(consultaSeleccionada == null){
+           javax.swing.JOptionPane.showMessageDialog(this, "Seleccione la consulta a cobrar."); 
+           return;
+        }
+        
+    }//GEN-LAST:event_btnGenerarComprobanteActionPerformed
+
+    private void btnRegistrarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarConsultaActionPerformed
+        String idMascota = getIdMascotaConsulta();
+    }//GEN-LAST:event_btnRegistrarConsultaActionPerformed
+    
+    // R E C E P C I O N I S T A
     
     //DATOS SECCION CLIENTES
     public String getCedulaCliente(){
@@ -808,15 +833,30 @@ public class VistaVet extends javax.swing.JFrame {
     
     public String getIdMascotaCita(){
         return txtIdMascotaCita.getText();
-    } 
+    }
     
+    public String getVeterinarioCita(){
+        return (String)cbVeterinarioCita.getSelectedItem();
+    }
     
+    public String getFechaCita(){
+        return txtFechaCita.getText();
+    }
     
+    public String getHoraCita(){
+        return txtHoraCita.getText();
+    }
     
+    public String getConsultaCobro(){
+        return (String)cbConsultaCobro.getSelectedItem();
+    }                            
     
+    // V E T E R I N A R I O
     
-    
-    
+    public String getIdMascotaConsulta(){
+        return txtIdMascotaConsulta.getText();
+    }
+ 
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
