@@ -755,6 +755,47 @@ public class VistaVet extends javax.swing.JFrame {
         String idMascota = getIdMascotaCita();
         String veterinarioCita = getVeterinarioCita();
         String fechaCita = getFechaCita();
+        String horaCita = getHoraCita();
+        
+        if (idMascota.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe el ID de la mascota.");
+            return;
+        }
+        
+        if(veterinarioCita == null || veterinarioCita.isBlank() ){
+           javax.swing.JOptionPane.showMessageDialog(this, "Seleccione el veterinario asignado a la cita."); 
+           return;
+        }
+        
+        if (fechaCita.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la fecha de la cita en el formato correspondiente.");
+            return;
+        }
+        
+        java.time.LocalDate fecha;
+        try {
+            fecha = java.time.LocalDate.parse(fechaCita.strip());
+        } catch (java.time.format.DateTimeParseException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe una fecha válida en formato AAAA-MM-DD, por ejemplo, 2026-12-05.");
+        return;
+        }
+        
+        if (horaCita.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe la hora de la cita en el formato correspondiente.");
+            return;
+        }
+        
+        java.time.LocalTime hora;
+        try {
+            hora = java.time.LocalTime.parse(horaCita,
+            java.time.format.DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(java.time.format.ResolverStyle.STRICT));
+            } catch (java.time.format.DateTimeParseException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Escribe una hora válida en formato HH:MM, por ejemplo, 14:30.");
+            return;
+        }
+
+        java.time.LocalDateTime fechaHora = java.time.LocalDateTime.of(fecha, hora);
+        
     }//GEN-LAST:event_btnAgendarCitaActionPerformed
 
     private void btnGenerarComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarComprobanteActionPerformed
@@ -769,6 +810,16 @@ public class VistaVet extends javax.swing.JFrame {
 
     private void btnRegistrarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarConsultaActionPerformed
         String idMascota = getIdMascotaConsulta();
+        String veterinarioConsulta = getVeterinarioConsulta();
+        String diagnostico = getDiagnosticoConsulta();
+        String tratamiento = getTratamientoConsulta();
+        String nombreVacuna = getVacunaConsulta();
+        String valorVacuna = getValorVacuna();
+        String notasMedicas = getNotasMedicas();
+        
+        
+        
+        
     }//GEN-LAST:event_btnRegistrarConsultaActionPerformed
     
     // R E C E P C I O N I S T A
@@ -853,10 +904,40 @@ public class VistaVet extends javax.swing.JFrame {
     
     // V E T E R I N A R I O
     
+    //Sección de Registrar Consulta
+    
     public String getIdMascotaConsulta(){
         return txtIdMascotaConsulta.getText();
     }
- 
+    
+    public String getVeterinarioConsulta(){
+        return (String)cbVeterinarioConsulta.getSelectedItem();
+    }
+    
+    public String getDiagnosticoConsulta(){
+        return txtDiagnostico.getText();
+    }
+    
+    public String getTratamientoConsulta(){
+        return txtTratamiento.getText();
+    }
+    
+    public String getVacunaConsulta(){
+        return txtVacunaNombre.getText();
+    }
+    
+    public String getValorVacuna(){
+        return txtVacunaPrecio.getText();
+    }
+    
+    public String getNotasMedicas(){
+        return txtNotasMedicas.getText();  
+    }
+    
+    //Seccion Historial Clinico
+    
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
