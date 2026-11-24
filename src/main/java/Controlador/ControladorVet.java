@@ -2,11 +2,14 @@ package Controlador;
 
 import Modelo.Cita;
 import Modelo.Cliente;
+import Modelo.Consulta;
 import Modelo.Mascota;
 import Modelo.MascotaConvencional;
 import Modelo.MascotaExotica;
+import Modelo.Vacuna;
 import Modelo.Veterinario;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +70,6 @@ public class ControladorVet {
         return new ArrayList<>(veterinarios);
     }
 
-
     public Cita agendarCita(String idMascota, String cedulaVeterinario,
                             LocalDateTime fechaHora) {
         if (fechaHora == null) {
@@ -91,6 +93,39 @@ public class ControladorVet {
         return cita;
     }
 
+
+    public Consulta registrarConsulta(String idMascota, String cedulaVeterinario,
+                                      String diagnostico, String tratamiento,
+                                      String notasMedicas, String nombreVacuna,
+                                      double valorVacuna) {
+        Mascota mascota = buscarMascota(idMascota);
+        if (mascota == null) {
+            throw new IllegalArgumentException(
+                    "No existe una mascota con el ID " + idMascota);
+        }
+
+        Veterinario veterinario = buscarVeterinario(cedulaVeterinario);
+        if (veterinario == null) {
+            throw new IllegalArgumentException(
+                    "No existe un veterinario con la cédula " + cedulaVeterinario);
+        }
+
+        boolean hayVacuna = nombreVacuna != null && !nombreVacuna.isBlank();
+        if (hayVacuna && valorVacuna < 0) {
+            throw new IllegalArgumentException("El valor de la vacuna no puede ser megativo");
+        }
+
+        Consulta consulta = new Consulta(LocalDate.now(), diagnostico, veterinario,
+                                         mascota, tratamiento, notasMedicas);
+        if (hayVacuna) {
+            consulta.agregarVacunaAplicada(
+                    new Vacuna(nombreVacuna, valorVacuna, LocalDate.now()));
+        }
+
+        mascota.getHistorial().agregarConsulta(consulta);
+        return consulta;
+    }
+
     private Cliente buscarCliente(String cedula) {
         for (Cliente c : clientes) {
             if (c.getCedula().equals(cedula)) {
@@ -108,7 +143,6 @@ public class ControladorVet {
         }
         return null;
     }
-
 
     private Veterinario buscarVeterinario(String cedula) {
         for (Veterinario v : veterinarios) {
