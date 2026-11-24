@@ -1,8 +1,10 @@
 package Vista;
+import Controlador.ControladorVet;
 
 
 public class VistaVet extends javax.swing.JFrame {
     
+    private final ControladorVet controlador = new ControladorVet();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaVet.class.getName());
 
     
@@ -657,6 +659,11 @@ public class VistaVet extends javax.swing.JFrame {
             return;
         }
         
+        if (!cedula.matches("[0-9]+")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La cédula debe contener solo dígitos del 0 al 9.");
+            return;
+        }
+        
         if (nombre.isEmpty()){
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe el nombre del cliente.");
             return;
@@ -667,10 +674,28 @@ public class VistaVet extends javax.swing.JFrame {
             return;
         }
         
+        if (!telefono.matches("[0-9]+")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El teléfono debe contener solo dígitos del 0 al 9.");
+            return;
+        }
+        
         if (direccion.isEmpty()){
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe la direccion del cliente.");
             return;
         }
+        
+        try {
+        controlador.registrarCliente(cedula, nombre, telefono, direccion);
+            javax.swing.JOptionPane.showMessageDialog(this, "Cliente registrado correctamente.");
+            txtCedulaCliente.setText("");
+            txtNombreCliente.setText("");
+            txtTelefonoCliente.setText("");
+            txtDireccionCliente.setText("");
+            txtCedulaCliente.requestFocusInWindow();
+        } catch (IllegalArgumentException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
         
     }//GEN-LAST:event_btnRegistrarClienteActionPerformed
 
@@ -749,7 +774,32 @@ public class VistaVet extends javax.swing.JFrame {
         if ("Exotica".equals(tipoMascota) && permisoCITES.isBlank()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe el permiso CITES obligatorio de la mascota.");
             return;
-        }   
+        }
+        
+        
+        try {
+            if ("Convencional".equals(tipoMascota)) {
+                controlador.registrarMascotaConvencional(cedulaDueno, idMascota, nombreMascota, edad, peso, razaMascota);
+            } else if ("Exotica".equals(tipoMascota)) {
+                controlador.registrarMascotaExotica(cedulaDueno, idMascota, nombreMascota, edad, peso, permisoCITES, sedacion);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Selecciona el tipo de mascota.");
+            return;
+            }
+            javax.swing.JOptionPane.showMessageDialog(this, "Mascota registrada correctamente.");
+
+            txtCedulaDueno.setText("");
+            txtIdMascota.setText("");
+            txtNombreMascota.setText("");
+            txtEdadMascota.setText("");
+            txtPesoMascota.setText("");
+            txtRazaMascota.setText("");
+            txtPermisoCITES.setText("");
+            chkSedacion.setSelected(false);
+            txtCedulaDueno.requestFocusInWindow();
+        } catch (IllegalArgumentException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnRegistrarMascotaActionPerformed
 
     private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
