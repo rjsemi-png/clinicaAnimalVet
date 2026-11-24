@@ -93,7 +93,6 @@ public class ControladorVet {
         return cita;
     }
 
-
     public Consulta registrarConsulta(String idMascota, String cedulaVeterinario,
                                       String diagnostico, String tratamiento,
                                       String notasMedicas, String nombreVacuna,
@@ -112,7 +111,7 @@ public class ControladorVet {
 
         boolean hayVacuna = nombreVacuna != null && !nombreVacuna.isBlank();
         if (hayVacuna && valorVacuna < 0) {
-            throw new IllegalArgumentException("El valor de la vacuna no puede ser megativo");
+            throw new IllegalArgumentException("El valor de la vacuna no puede ser negativo");
         }
 
         Consulta consulta = new Consulta(LocalDate.now(), diagnostico, veterinario,
@@ -124,6 +123,16 @@ public class ControladorVet {
 
         mascota.getHistorial().agregarConsulta(consulta);
         return consulta;
+    }
+
+
+    public List<Consulta> consultarHistorial(String idMascota) {
+        Mascota mascota = buscarMascota(idMascota);
+        if (mascota == null) {
+            throw new IllegalArgumentException(
+                    "No existe una mascota con el ID " + idMascota);
+        }
+        return mascota.getHistorial().getConsultas();
     }
 
     private Cliente buscarCliente(String cedula) {
