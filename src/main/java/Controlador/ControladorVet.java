@@ -14,6 +14,7 @@ import Modelo.Recepcionista;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ControladorVet {
@@ -24,6 +25,7 @@ public class ControladorVet {
     private final List<Cita> citas = new ArrayList<>();
     private final Recepcionista recepcionista;
 
+    // Veterinarios registrados
     public ControladorVet() {
         veterinarios.add(new Veterinario("1092535876", "Tite Perez", "3131234567", "Calle 1 #2-3",
                 "Veterinario", "", "", "Medicina general", "TP-001"));
@@ -101,6 +103,13 @@ public class ControladorVet {
         }
         
         return recepcionista.agendarCita(mascota, veterinario, fechaHora);
+    }
+
+    // Tabla de agenda
+    public List<Cita> consultarCitas() {
+        List<Cita> resultado = recepcionista.consultarCitas();
+        resultado.sort(Comparator.comparing(Cita::getFechaHora));
+        return resultado;
     }
 
     

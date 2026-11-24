@@ -20,6 +20,10 @@ public abstract class Mascota {
         return id;
     }
     
+    public String getNombre(){
+        return nombre;
+    }
+    
     public HistorialClinico getHistorial(){
         return historial;
     }

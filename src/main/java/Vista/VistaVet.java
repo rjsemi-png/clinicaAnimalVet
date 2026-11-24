@@ -2,6 +2,7 @@ package Vista;
 import Controlador.ControladorVet;
 import Modelo.Consulta;
 import Modelo.Veterinario;
+import Modelo.Cita;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -41,11 +42,29 @@ public class VistaVet extends javax.swing.JFrame {
         cbConsultaCobro.setSelectedIndex(-1);
     }
     
+    private void cargarTablaCitas() {
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+                new String[]{"Mascota", "Fecha y hora", "Estado"}, 0);
+
+        for (Cita cita : controlador.consultarCitas()) {
+            modelo.addRow(new Object[]{
+                cita.getMascota().getNombre() + " (" + cita.getMascota().getId() + ")",
+                cita.getFechaHora().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")),
+                cita.getEstado()
+            });
+        }
+
+        tblCitas.setModel(modelo);
+        tblCitas.setDefaultEditor(Object.class, null);
+    }
+    
     public VistaVet() {
         initComponents();
         cargarVeterinarios();
         cargarConsultasParaCobrar();
         cbTipoMascotaActionPerformed(null);
+        cargarTablaCitas();
+        jTabbedPane2.addChangeListener(e -> cargarTablaCitas());
     }
 
     @SuppressWarnings("unchecked")
@@ -101,6 +120,9 @@ public class VistaVet extends javax.swing.JFrame {
         btnGenerarComprobante = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaComprobante = new javax.swing.JTextArea();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblCitas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -458,6 +480,38 @@ public class VistaVet extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Citas y Cobro", jPanel5);
+
+        tblCitas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tblCitas);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Agenda", jPanel8);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1239,13 +1293,16 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabPanel;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTable tblCitas;
     private javax.swing.JTextField txtCedulaCliente;
     private javax.swing.JTextField txtCedulaDueno;
     private javax.swing.JTextField txtDiagnostico;
