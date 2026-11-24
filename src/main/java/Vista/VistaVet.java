@@ -44,11 +44,12 @@ public class VistaVet extends javax.swing.JFrame {
     
     private void cargarTablaCitas() {
         javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
-                new String[]{"Mascota", "Fecha y hora", "Estado"}, 0);
+                new String[]{"Mascota", "Veterinario", "Fecha y hora", "Estado"}, 0);
 
         for (Cita cita : controlador.consultarCitas()) {
             modelo.addRow(new Object[]{
                 cita.getMascota().getNombre() + " (" + cita.getMascota().getId() + ")",
+                cita.getVeterinario().getNombre(),
                 cita.getFechaHora().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")),
                 cita.getEstado()
             });
