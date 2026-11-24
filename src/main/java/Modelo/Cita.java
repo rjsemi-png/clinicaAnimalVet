@@ -16,6 +16,10 @@ public class Cita {
         this.estado = "Pendiente";
     }
     
+    public java.time.LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+    
     public void confirmar(){
         this.estado = "Confirmado";
     }

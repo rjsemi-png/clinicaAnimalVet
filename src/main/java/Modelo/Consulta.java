@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
 public class Consulta {
+    private final java.time.LocalDateTime fechaHoraCita;
     private LocalDate fecha;
     private Veterinario veterinario;
     private Mascota mascota;
@@ -14,7 +15,7 @@ public class Consulta {
     private List<Vacuna> vacunasAplicadas;
     private String diagnostico;
     
-    public Consulta(LocalDate fecha, String diagnostico, Veterinario veterinario, Mascota mascota, String tratamiento, String notasMedicas){
+    public Consulta(LocalDate fecha, String diagnostico, Veterinario veterinario, Mascota mascota, String tratamiento, String notasMedicas, java.time.LocalDateTime fechaHoraCita ){
         this.fecha = fecha;
         this.diagnostico = diagnostico;
         this.mascota = mascota;
@@ -22,6 +23,7 @@ public class Consulta {
         this.tratamiento  = tratamiento;
         this.notasMedicas = notasMedicas;
         this.vacunasAplicadas = new ArrayList<>();
+        this.fechaHoraCita = fechaHoraCita;
     }
     
     public void agregarVacunaAplicada(Vacuna vacuna){
@@ -88,6 +90,12 @@ public class Consulta {
     
     public Mascota getMascota() {
         return mascota;
+    }
+    
+    
+
+    public java.time.LocalDateTime getFechaHoraCita() {
+        return fechaHoraCita;
     }
     
 }

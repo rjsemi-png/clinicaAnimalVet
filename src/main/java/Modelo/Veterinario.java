@@ -52,13 +52,8 @@ public class Veterinario extends Empleado {
 
         Mascota mascota = cita.getMascota();
 
-        Consulta consulta = new Consulta(
-            LocalDate.now(),
-            diagnostico,
-            this,
-            mascota,
-            tratamiento,
-            notasMedicas
+        Consulta consulta = new Consulta(LocalDate.now(), diagnostico, this, mascota,
+                tratamiento, notasMedicas, cita.getFechaHora()
         );
 
         mascota.getHistorial().agregarConsulta(consulta);

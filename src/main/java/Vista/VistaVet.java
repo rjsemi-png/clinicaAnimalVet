@@ -895,6 +895,12 @@ public class VistaVet extends javax.swing.JFrame {
         try {
             controlador.agendarCita(idMascota, cedulaVeterinario, fechaHora);
             JOptionPane.showMessageDialog(this, "Cita agendada correctamente.");
+            
+            txtIdMascotaCita.setText("");
+            cbVeterinarioConsulta.setSelectedIndex(-1);
+            txtFechaCita.setText("");
+            txtHoraCita.setText("");
+            
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -912,6 +918,8 @@ public class VistaVet extends javax.swing.JFrame {
             Consulta consulta = consultasParaCobrar.get(indiceConsulta);
             String comprobante = controlador.generarComprobante(consulta);
             areaComprobante.setText(comprobante);
+            
+            areaComprobante.setText("");
         } catch (IllegalArgumentException e) {
             areaComprobante.setText("");
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -988,6 +996,16 @@ public class VistaVet extends javax.swing.JFrame {
                     diagnostico, tratamiento, notasMedicas, nombreVacuna, valorVac);
             cargarConsultasParaCobrar();
             JOptionPane.showMessageDialog(this, "Consulta registrada correctamente.");
+            
+            txtIdMascotaConsulta.setText("");
+            cbVeterinarioConsulta.setSelectedIndex(-1);
+            txtDiagnostico.setText("");
+            txtTratamiento.setText("");
+            txtNotasMedicas.setText("");
+            txtVacunaNombre.setText("");
+            txtVacunaPrecio.setText("");
+            txtNotasMedicas.setText("");
+            
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -1012,7 +1030,8 @@ public class VistaVet extends javax.swing.JFrame {
 
             StringBuilder texto = new StringBuilder("Historial de la mascota " + idMascota + "\n");
             for (Consulta consulta : historial) {
-                texto.append("\nFecha: ").append(consulta.getFecha())
+                texto.append("\nCita agendada: ")
+                        .append(consulta.getFechaHoraCita().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")))
                         .append("\nVeterinario: ").append(consulta.getVeterinario().getNombre())
                         .append("\nDiagnóstico: ").append(consulta.getDiagnostico())
                         .append("\nTratamiento: ").append(consulta.getTratamiento())
