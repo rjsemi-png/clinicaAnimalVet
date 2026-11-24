@@ -1,15 +1,50 @@
 package Vista;
 import Controlador.ControladorVet;
+import Modelo.Consulta;
+import Modelo.Veterinario;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 
 public class VistaVet extends javax.swing.JFrame {
     
     private final ControladorVet controlador = new ControladorVet();
+    private final List<Veterinario> veterinarios = controlador.obtenerVeterinarios();
+    private List<Consulta> consultasParaCobrar = List.of();
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaVet.class.getName());
 
+    private void cargarVeterinarios() {
+        cbVeterinarioCita.removeAllItems();
+        cbVeterinarioConsulta.removeAllItems();
+
+        for (Veterinario veterinario : veterinarios) {
+            String opcion = veterinario.getNombre() + " (" + veterinario.getCedula() + ")";
+            cbVeterinarioCita.addItem(opcion);
+            cbVeterinarioConsulta.addItem(opcion);
+        }
+
+        cbVeterinarioCita.setSelectedIndex(-1);
+        cbVeterinarioConsulta.setSelectedIndex(-1);
+    }
+
+    private void cargarConsultasParaCobrar() {
+        consultasParaCobrar = controlador.obtenerConsultasParaCobrar();
+        cbConsultaCobro.removeAllItems();
+
+        for (int i = 0; i < consultasParaCobrar.size(); i++) {
+            Consulta consulta = consultasParaCobrar.get(i);
+            cbConsultaCobro.addItem("Consulta " + (i + 1)
+                    + " - Mascota " + consulta.getMascota().getId());
+        }
+
+        cbConsultaCobro.setSelectedIndex(-1);
+    }
     
     public VistaVet() {
         initComponents();
+        cargarVeterinarios();
+        cargarConsultasParaCobrar();
         cbTipoMascotaActionPerformed(null);
     }
 
@@ -847,14 +882,32 @@ public class VistaVet extends javax.swing.JFrame {
 
         java.time.LocalDateTime fechaHora = java.time.LocalDateTime.of(fecha, hora);
         
+        int indiceVeterinario = cbVeterinarioCita.getSelectedIndex();
+        String cedulaVeterinario = veterinarios.get(indiceVeterinario).getCedula();
+
+        try {
+            controlador.agendarCita(idMascota, cedulaVeterinario, fechaHora);
+            JOptionPane.showMessageDialog(this, "Cita agendada correctamente.");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
     }//GEN-LAST:event_btnAgendarCitaActionPerformed
 
     private void btnGenerarComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarComprobanteActionPerformed
-        String consultaSeleccionada = getConsultaCobro();
-        
-        if(consultaSeleccionada == null){
-           javax.swing.JOptionPane.showMessageDialog(this, "Seleccione la consulta a cobrar."); 
-           return;
+        int indiceConsulta = cbConsultaCobro.getSelectedIndex();
+        if (indiceConsulta < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona una consulta para cobrar.");
+            return;
+        }
+
+        try {
+            Consulta consulta = consultasParaCobrar.get(indiceConsulta);
+            String comprobante = controlador.generarComprobante(consulta);
+            areaComprobante.setText(comprobante);
+        } catch (IllegalArgumentException e) {
+            areaComprobante.setText("");
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
         
     }//GEN-LAST:event_btnGenerarComprobanteActionPerformed
@@ -919,6 +972,19 @@ public class VistaVet extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe las notas médicas de la consulta.");
             return;
         }
+        
+        int indiceVeterinario = cbVeterinarioConsulta.getSelectedIndex();
+        String cedulaVeterinario = veterinarios.get(indiceVeterinario).getCedula();
+
+        try {
+            controlador.registrarConsulta(idMascota, cedulaVeterinario,
+                    diagnostico, tratamiento, notasMedicas, nombreVacuna, valorVac);
+            cargarConsultasParaCobrar();
+            JOptionPane.showMessageDialog(this, "Consulta registrada correctamente.");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
             
     }//GEN-LAST:event_btnRegistrarConsultaActionPerformed
 
@@ -930,7 +996,22 @@ public class VistaVet extends javax.swing.JFrame {
             return;
         }
         
-        areaHistorial.setText("Prueba de historial para la mascota: " + idMascota);
+        try {
+            List<Consulta> historial = controlador.consultarHistorial(idMascota);
+            if (historial.isEmpty()) {
+                areaHistorial.setText("Esta mascota aún no tiene consultas registradas.");
+                return;
+            }
+
+            StringBuilder texto = new StringBuilder("Historial de la mascota " + idMascota + "\n");
+            for (int i = 0; i < historial.size(); i++) {
+                texto.append("Consulta ").append(i + 1).append(" registrada\n");
+            }
+            areaHistorial.setText(texto.toString());
+        } catch (IllegalArgumentException e) {
+            areaHistorial.setText("");
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
         
     }//GEN-LAST:event_btnConsultarHistorialActionPerformed
     
