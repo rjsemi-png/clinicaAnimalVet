@@ -897,7 +897,7 @@ public class VistaVet extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cita agendada correctamente.");
             
             txtIdMascotaCita.setText("");
-            cbVeterinarioConsulta.setSelectedIndex(-1);
+            cbVeterinarioCita.setSelectedIndex(-1);
             txtFechaCita.setText("");
             txtHoraCita.setText("");
             
@@ -1000,7 +1000,6 @@ public class VistaVet extends javax.swing.JFrame {
             cbVeterinarioConsulta.setSelectedIndex(-1);
             txtDiagnostico.setText("");
             txtTratamiento.setText("");
-            txtNotasMedicas.setText("");
             txtVacunaNombre.setText("");
             txtVacunaPrecio.setText("");
             txtNotasMedicas.setText("");
