@@ -22,7 +22,6 @@ public class Consulta {
         this.tratamiento  = tratamiento;
         this.notasMedicas = notasMedicas;
         this.vacunasAplicadas = new ArrayList<>();
-        
     }
     
     public void agregarVacunaAplicada(Vacuna vacuna){
@@ -61,6 +60,30 @@ public class Consulta {
         
         return new Cobro(tarifaBase, costoVacunas, costoSedacion, recargo, descuento);
             
+    }
+    
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public String getTratamiento() {
+        return tratamiento;
+    }
+
+    public String getNotasMedicas() {
+        return notasMedicas;
+    }
+
+    public List<Vacuna> getVacunasAplicadas() {
+        return List.copyOf(vacunasAplicadas);
     }
     
     public Mascota getMascota() {

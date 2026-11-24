@@ -843,6 +843,7 @@ public class VistaVet extends javax.swing.JFrame {
         String fechaCita = getFechaCita();
         String horaCita = getHoraCita();
         
+        
         if (idMascota.isBlank()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe el ID de la mascota.");
             return;
@@ -881,6 +882,12 @@ public class VistaVet extends javax.swing.JFrame {
         }
 
         java.time.LocalDateTime fechaHora = java.time.LocalDateTime.of(fecha, hora);
+        
+
+        if (!fechaHora.isAfter(java.time.LocalDateTime.now())) {
+            JOptionPane.showMessageDialog(this,"La cita debe agendarse para una fecha y hora futuras.");
+            return;
+        }
         
         int indiceVeterinario = cbVeterinarioCita.getSelectedIndex();
         String cedulaVeterinario = veterinarios.get(indiceVeterinario).getCedula();
@@ -1004,8 +1011,22 @@ public class VistaVet extends javax.swing.JFrame {
             }
 
             StringBuilder texto = new StringBuilder("Historial de la mascota " + idMascota + "\n");
-            for (int i = 0; i < historial.size(); i++) {
-                texto.append("Consulta ").append(i + 1).append(" registrada\n");
+            for (Consulta consulta : historial) {
+                texto.append("\nFecha: ").append(consulta.getFecha())
+                        .append("\nVeterinario: ").append(consulta.getVeterinario().getNombre())
+                        .append("\nDiagnóstico: ").append(consulta.getDiagnostico())
+                        .append("\nTratamiento: ").append(consulta.getTratamiento())
+                        .append("\nNotas médicas: ").append(consulta.getNotasMedicas())
+                        .append("\nVacunas aplicadas: ");
+
+                List<Modelo.Vacuna> vacunas = consulta.getVacunasAplicadas();
+                if (vacunas.isEmpty()) {
+                    texto.append("Ninguna");
+                } else {
+                    texto.append(String.join(", ",
+                            vacunas.stream().map(Modelo.Vacuna::getNombre).toList()));
+                }
+                texto.append('\n');
             }
             areaHistorial.setText(texto.toString());
         } catch (IllegalArgumentException e) {
