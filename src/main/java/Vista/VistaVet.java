@@ -919,7 +919,6 @@ public class VistaVet extends javax.swing.JFrame {
             String comprobante = controlador.generarComprobante(consulta);
             areaComprobante.setText(comprobante);
             
-            areaComprobante.setText("");
         } catch (IllegalArgumentException e) {
             areaComprobante.setText("");
             JOptionPane.showMessageDialog(this, e.getMessage());
