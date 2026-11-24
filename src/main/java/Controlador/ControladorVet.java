@@ -1,11 +1,13 @@
 package Controlador;
 
+import Modelo.Cita;
 import Modelo.Cliente;
 import Modelo.Mascota;
 import Modelo.MascotaConvencional;
 import Modelo.MascotaExotica;
 import Modelo.Veterinario;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class ControladorVet {
     private final List<Cliente> clientes = new ArrayList<>();
     private final List<Mascota> mascotas = new ArrayList<>();
     private final List<Veterinario> veterinarios = new ArrayList<>();
+    private final List<Cita> citas = new ArrayList<>();
 
     public ControladorVet() {
         veterinarios.add(new Veterinario("1092535876", "Tite Perez", "3131234567", "Calle 1 #2-3",
@@ -60,9 +63,32 @@ public class ControladorVet {
         mascotas.add(mascota);
     }
 
-
     public List<Veterinario> obtenerVeterinarios() {
         return new ArrayList<>(veterinarios);
+    }
+
+
+    public Cita agendarCita(String idMascota, String cedulaVeterinario,
+                            LocalDateTime fechaHora) {
+        if (fechaHora == null) {
+            throw new IllegalArgumentException("Debe indicar la fecha y la hora de la cita");
+        }
+
+        Mascota mascota = buscarMascota(idMascota);
+        if (mascota == null) {
+            throw new IllegalArgumentException(
+                    "No existe una mascota con el ID " + idMascota);
+        }
+
+        Veterinario veterinario = buscarVeterinario(cedulaVeterinario);
+        if (veterinario == null) {
+            throw new IllegalArgumentException(
+                    "No existe un veterinario con la cédula " + cedulaVeterinario);
+        }
+
+        Cita cita = new Cita(fechaHora, mascota, veterinario);
+        citas.add(cita);
+        return cita;
     }
 
     private Cliente buscarCliente(String cedula) {
@@ -78,6 +104,16 @@ public class ControladorVet {
         for (Mascota m : mascotas) {
             if (m.getId().equals(id)) {
                 return m;
+            }
+        }
+        return null;
+    }
+
+
+    private Veterinario buscarVeterinario(String cedula) {
+        for (Veterinario v : veterinarios) {
+            if (v.getCedula().equals(cedula)) {
+                return v;
             }
         }
         return null;
