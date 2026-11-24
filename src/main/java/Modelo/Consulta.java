@@ -63,5 +63,8 @@ public class Consulta {
             
     }
     
+    public Mascota getMascota() {
+        return mascota;
+    }
     
 }
