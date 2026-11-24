@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.Cita;
+import Modelo.Cobro;
 import Modelo.Cliente;
 import Modelo.Consulta;
 import Modelo.Mascota;
@@ -125,7 +126,6 @@ public class ControladorVet {
         return consulta;
     }
 
-
     public List<Consulta> consultarHistorial(String idMascota) {
         Mascota mascota = buscarMascota(idMascota);
         if (mascota == null) {
@@ -133,6 +133,30 @@ public class ControladorVet {
                     "No existe una mascota con el ID " + idMascota);
         }
         return mascota.getHistorial().getConsultas();
+    }
+
+    public List<Consulta> obtenerConsultasParaCobrar() {
+        List<Consulta> resultado = new ArrayList<>();
+        for (Mascota m : mascotas) {
+            resultado.addAll(m.getHistorial().getConsultas());
+        }
+        return resultado;
+    }
+
+    
+    public String generarComprobante(Consulta consulta) {
+        if (consulta == null) {
+            throw new IllegalArgumentException("Debe seleccionar una consulta");
+        }
+
+        Cliente dueno = buscarDuenoDeMascota(consulta.getMascota());
+        if (dueno == null) {
+            throw new IllegalArgumentException(
+                    "No se encontró el dueño de la mascota de esta consulta");
+        }
+
+        Cobro cobro = consulta.generarCobro(dueno);
+        return cobro.emitirComprobante();
     }
 
     private Cliente buscarCliente(String cedula) {
@@ -157,6 +181,15 @@ public class ControladorVet {
         for (Veterinario v : veterinarios) {
             if (v.getCedula().equals(cedula)) {
                 return v;
+            }
+        }
+        return null;
+    }
+
+    private Cliente buscarDuenoDeMascota(Mascota mascota) {
+        for (Cliente c : clientes) {
+            if (c.getMascotas().contains(mascota)) {
+                return c;
             }
         }
         return null;
