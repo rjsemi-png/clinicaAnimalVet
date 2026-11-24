@@ -9,6 +9,7 @@ import Modelo.MascotaConvencional;
 import Modelo.MascotaExotica;
 import Modelo.Vacuna;
 import Modelo.Veterinario;
+import Modelo.Recepcionista;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class ControladorVet {
     private final List<Mascota> mascotas = new ArrayList<>();
     private final List<Veterinario> veterinarios = new ArrayList<>();
     private final List<Cita> citas = new ArrayList<>();
+    private final Recepcionista recepcionista;
 
     public ControladorVet() {
         veterinarios.add(new Veterinario("1092535876", "Tite Perez", "3131234567", "Calle 1 #2-3",
@@ -29,6 +31,15 @@ public class ControladorVet {
                 "Veterinario", "", "", "Animales exoticos", "TP-002"));
         veterinarios.add(new Veterinario("1092567809", "Jose Solano", "3239876543", "Calle 7 #8-9",
                 "Veterinario", "", "", "Cirugia", "TP-003"));
+        recepcionista = new Recepcionista(
+            "1001",
+            "Recepcionista",
+            "3000000000",
+            "Clinica AnimalVet",
+            "Recepcionista",
+            clientes,
+            citas
+        );
     }
 
     public void registrarCliente(String cedula, String nombre,
@@ -37,7 +48,7 @@ public class ControladorVet {
             throw new IllegalArgumentException(
                     "Ya existe un cliente registrado con la cédula " + cedula);
         }
-        clientes.add(new Cliente(cedula, nombre, telefono, direccion));
+        recepcionista.registrarCliente(new Cliente(cedula, nombre, telefono, direccion));
     }
 
     public void registrarMascotaConvencional(String cedulaDueno, String id, String nombre,
@@ -46,7 +57,7 @@ public class ControladorVet {
         validarIdDisponible(id);
 
         Mascota mascota = new MascotaConvencional(nombre, id, edad, peso, raza);
-        dueno.agregarMascota(mascota);
+        recepcionista.registrarMascota(dueno, mascota);
         mascotas.add(mascota);
     }
 
@@ -63,7 +74,7 @@ public class ControladorVet {
                     "Una mascota exótica requiere un permiso CITES válido");
         }
 
-        dueno.agregarMascota(mascota);
+        recepcionista.registrarMascota(dueno, mascota);
         mascotas.add(mascota);
     }
 
@@ -88,43 +99,79 @@ public class ControladorVet {
             throw new IllegalArgumentException(
                     "No existe un veterinario con la cédula " + cedulaVeterinario);
         }
-
-        Cita cita = new Cita(fechaHora, mascota, veterinario);
-        citas.add(cita);
-        return cita;
+        
+        return recepcionista.agendarCita(mascota, veterinario, fechaHora);
     }
 
-    public Consulta registrarConsulta(String idMascota, String cedulaVeterinario,
-                                      String diagnostico, String tratamiento,
-                                      String notasMedicas, String nombreVacuna,
-                                      double valorVacuna) {
+    
+    public Consulta registrarConsulta(String idMascota,
+                                     String cedulaVeterinario,
+                                     String diagnostico,
+                                     String tratamiento,
+                                     String notasMedicas,
+                                     String nombreVacuna,
+                                     double valorVacuna) {
+
         Mascota mascota = buscarMascota(idMascota);
-        if (mascota == null) {
-            throw new IllegalArgumentException(
-                    "No existe una mascota con el ID " + idMascota);
-        }
-
         Veterinario veterinario = buscarVeterinario(cedulaVeterinario);
-        if (veterinario == null) {
+
+        if (mascota == null || veterinario == null) {
             throw new IllegalArgumentException(
-                    "No existe un veterinario con la cédula " + cedulaVeterinario);
+                "La mascota o el veterinario no existe");
         }
 
-        boolean hayVacuna = nombreVacuna != null && !nombreVacuna.isBlank();
+        boolean hayVacuna = nombreVacuna != null
+                            && !nombreVacuna.isBlank();
+
         if (hayVacuna && valorVacuna < 0) {
-            throw new IllegalArgumentException("El valor de la vacuna no puede ser negativo");
+            throw new IllegalArgumentException(
+                "El valor de la vacuna no puede ser negativo");
         }
 
-        Consulta consulta = new Consulta(LocalDate.now(), diagnostico, veterinario,
-                                         mascota, tratamiento, notasMedicas);
+        // Buscar una cita pendiente o confirmada
+        Cita citaEncontrada = null;
+
+        for (Cita cita : citas) {
+            if (cita.getMascota() == mascota
+                    && cita.getVeterinario() == veterinario
+                    && (cita.getEstado().equals("Pendiente")
+                        || cita.getEstado().equals("Confirmado"))) {
+
+                if (citaEncontrada != null) {
+                    throw new IllegalArgumentException(
+                        "Hay varias citas posibles. Debe seleccionarse una");
+                }
+
+                citaEncontrada = cita;
+            }
+        }
+
+        if (citaEncontrada == null) {
+            throw new IllegalArgumentException(
+                "No hay una cita disponible para esta atención");
+        }
+
+        // Delegar el registro al veterinario
+        Consulta consulta = veterinario.registrarConsulta(
+            citaEncontrada,
+            diagnostico,
+            tratamiento,
+            notasMedicas
+        );
+
+        // Agregar vacuna si fue aplicada
         if (hayVacuna) {
             consulta.agregarVacunaAplicada(
-                    new Vacuna(nombreVacuna, valorVacuna, LocalDate.now()));
+                new Vacuna(nombreVacuna, valorVacuna, LocalDate.now())
+            );
         }
 
-        mascota.getHistorial().agregarConsulta(consulta);
+        // Marcar la cita como atendida
+        veterinario.atenderCita(citaEncontrada);
+
         return consulta;
     }
+
 
     public List<Consulta> consultarHistorial(String idMascota) {
         Mascota mascota = buscarMascota(idMascota);

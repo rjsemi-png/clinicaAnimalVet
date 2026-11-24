@@ -36,5 +36,8 @@ public class Cita {
         return veterinario;
     }
     
+    public String getEstado() {
+        return estado;
+    }
     
 }
