@@ -11,6 +11,7 @@ public class MascotaExotica extends Mascota{
     super(nombre, id, edad, peso);
 
     this.permisoCITES = permisoCITES;
+    
     this.requiereSedacion = requiereSedacion;
 
     if (!validarPermiso()) {
