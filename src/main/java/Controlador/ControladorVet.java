@@ -23,20 +23,28 @@ public class ControladorVet {
     private final List<Mascota> mascotas = new ArrayList<>();
     private final List<Veterinario> veterinarios = new ArrayList<>();
     private final List<Cita> citas = new ArrayList<>();
+    private final List<Vacuna> vacunasDisponibles = new ArrayList<>();
     private final Recepcionista recepcionista;
 
-    // Veterinarios registrados
     public ControladorVet() {
+        // Veterinarios
         veterinarios.add(new Veterinario("1092535876", "Tite Perez", "3131234567", "Calle 1 #2-3",
                 "Veterinario", "", "", "Medicina general", "TP-001"));
         veterinarios.add(new Veterinario("1093456123", "Emily Azules", "3107654321", "Calle 4 #5-6",
                 "Veterinario", "", "", "Animales exoticos", "TP-002"));
         veterinarios.add(new Veterinario("1092567809", "Jose Solano", "3239876543", "Calle 7 #8-9",
                 "Veterinario", "", "", "Cirugia", "TP-003"));
+        
+        // Vacunas
+        vacunasDisponibles.add(new Vacuna("Antirrábica", 20000));
+        vacunasDisponibles.add(new Vacuna("Múltiple canina", 35000));
+        vacunasDisponibles.add(new Vacuna("Triple felina", 30000));
+        
+        
         recepcionista = new Recepcionista(
-            "1001",
+            "1093456789",
             "Recepcionista",
-            "3000000000",
+            "3149567891",
             "Clinica AnimalVet",
             "Recepcionista",
             clientes,
@@ -80,6 +88,10 @@ public class ControladorVet {
         mascotas.add(mascota);
     }
 
+    public List<Vacuna> obtenerVacunasDisponibles() {
+        return new ArrayList<>(vacunasDisponibles);
+    }
+
     public List<Veterinario> obtenerVeterinarios() {
         return new ArrayList<>(veterinarios);
     }
@@ -105,7 +117,7 @@ public class ControladorVet {
         return recepcionista.agendarCita(mascota, veterinario, fechaHora);
     }
 
-    // Tabla de agenda
+    // Devuelve las citas registradas ordenadas por fecha y hora, para la tabla de Agenda
     public List<Cita> consultarCitas() {
         List<Cita> resultado = recepcionista.consultarCitas();
         resultado.sort(Comparator.comparing(Cita::getFechaHora));
@@ -118,8 +130,7 @@ public class ControladorVet {
                                      String diagnostico,
                                      String tratamiento,
                                      String notasMedicas,
-                                     String nombreVacuna,
-                                     double valorVacuna) {
+                                     String nombreVacuna) {
 
         Mascota mascota = buscarMascota(idMascota);
         Veterinario veterinario = buscarVeterinario(cedulaVeterinario);
@@ -132,9 +143,13 @@ public class ControladorVet {
         boolean hayVacuna = nombreVacuna != null
                             && !nombreVacuna.isBlank();
 
-        if (hayVacuna && valorVacuna < 0) {
-            throw new IllegalArgumentException(
-                "El valor de la vacuna no puede ser negativo");
+        Vacuna vacunaElegida = null;
+        if (hayVacuna) {
+            vacunaElegida = buscarVacuna(nombreVacuna);
+            if (vacunaElegida == null) {
+                throw new IllegalArgumentException(
+                    "La vacuna " + nombreVacuna + " no está disponible");
+            }
         }
 
         // Buscar una cita pendiente o confirmada
@@ -171,7 +186,7 @@ public class ControladorVet {
         // Agregar vacuna si fue aplicada
         if (hayVacuna) {
             consulta.agregarVacunaAplicada(
-                new Vacuna(nombreVacuna, valorVacuna, LocalDate.now())
+                new Vacuna(vacunaElegida.getNombre(), vacunaElegida.getCosto(), LocalDate.now())
             );
         }
 
@@ -213,6 +228,15 @@ public class ControladorVet {
 
         Cobro cobro = consulta.generarCobro(dueno);
         return cobro.emitirComprobante();
+    }
+
+    private Vacuna buscarVacuna(String nombre) {
+        for (Vacuna v : vacunasDisponibles) {
+            if (v.getNombre().equals(nombre)) {
+                return v;
+            }
+        }
+        return null;
     }
 
     private Cliente buscarCliente(String cedula) {

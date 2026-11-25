@@ -14,6 +14,10 @@ public class Vacuna {
         this.fechaAplicacion = fechaAplicacion;
     }
     
+    public Vacuna(String nombre, double costo){
+        this(nombre, costo, null);
+    }
+    
     public double getCosto(){
         return costo;
     }

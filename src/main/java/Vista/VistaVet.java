@@ -12,6 +12,7 @@ public class VistaVet extends javax.swing.JFrame {
     private final ControladorVet controlador = new ControladorVet();
     private final List<Veterinario> veterinarios = controlador.obtenerVeterinarios();
     private List<Consulta> consultasParaCobrar = List.of();
+    private final List<Modelo.Vacuna> vacunasDisponibles = controlador.obtenerVacunasDisponibles();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaVet.class.getName());
 
@@ -27,6 +28,17 @@ public class VistaVet extends javax.swing.JFrame {
 
         cbVeterinarioCita.setSelectedIndex(-1);
         cbVeterinarioConsulta.setSelectedIndex(-1);
+    }
+
+    private void cargarVacunas() {
+        cbVacunaConsulta.removeAllItems();
+        cbVacunaConsulta.addItem("Ninguna");
+
+        for (Modelo.Vacuna vacuna : vacunasDisponibles) {
+            cbVacunaConsulta.addItem(vacuna.getNombre() + " - $" + (int) vacuna.getCosto());
+        }
+
+        cbVacunaConsulta.setSelectedIndex(0);
     }
 
     private void cargarConsultasParaCobrar() {
@@ -63,6 +75,7 @@ public class VistaVet extends javax.swing.JFrame {
         initComponents();
         cargarVeterinarios();
         cargarConsultasParaCobrar();
+        cargarVacunas();
         cbTipoMascotaActionPerformed(null);
         cargarTablaCitas();
         jTabbedPane2.addChangeListener(e -> cargarTablaCitas());
@@ -136,9 +149,7 @@ public class VistaVet extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         txtTratamiento = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        txtVacunaNombre = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
-        txtVacunaPrecio = new javax.swing.JTextField();
+        cbVacunaConsulta = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
         txtNotasMedicas = new javax.swing.JTextField();
         btnRegistrarConsulta = new javax.swing.JButton();
@@ -550,10 +561,9 @@ public class VistaVet extends javax.swing.JFrame {
         jLabel21.setText("Tratamiento:");
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        jLabel22.setText("Vacuna (opcional):");
+        jLabel22.setText("Vacuna:");
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        jLabel23.setText("Valor Vacuna $$$:");
+        cbVacunaConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         jLabel24.setText("Notas médicas:");
@@ -567,44 +577,39 @@ public class VistaVet extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdMascotaConsulta)
+                            .addComponent(cbVeterinarioConsulta, 0, 163, Short.MAX_VALUE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel18))
+                                .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtIdMascotaConsulta)
-                                    .addComponent(cbVeterinarioConsulta, 0, 163, Short.MAX_VALUE)))
+                                .addComponent(txtNotasMedicas, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel20)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel21)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTratamiento))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtVacunaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtVacunaPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel24)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNotasMedicas, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(btnRegistrarConsulta)))
+                                .addGap(90, 90, 90)
+                                .addComponent(btnRegistrarConsulta))
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(jLabel20)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(jLabel21)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtTratamiento))
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(jLabel22)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbVacunaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(169, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -628,19 +633,15 @@ public class VistaVet extends javax.swing.JFrame {
                     .addComponent(txtTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtVacunaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addGap(14, 14, 14)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtVacunaPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel22)
+                    .addComponent(cbVacunaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(txtNotasMedicas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarConsulta)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Registrar Consulta", jPanel6);
@@ -990,7 +991,6 @@ public class VistaVet extends javax.swing.JFrame {
         String diagnostico = getDiagnosticoConsulta();
         String tratamiento = getTratamientoConsulta();
         String nombreVacuna = getVacunaConsulta();
-        String valorVacuna = getValorVacuna();
         String notasMedicas = getNotasMedicas();
         
         if (idMascota.isBlank()) {
@@ -1013,33 +1013,6 @@ public class VistaVet extends javax.swing.JFrame {
             return;
         }
         
-        double valorVac = 0.0;
-        if (!nombreVacuna.isBlank() || !valorVacuna.isBlank()) {
-            
-            if (nombreVacuna.isBlank()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Escribe el nombre de la vacuna aplicada.");
-                return;
-            }
-            
-            if (valorVacuna.isBlank()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Escribe el valor de la vacuna.");
-                return;
-            }
-            
-            try {
-                valorVac = Double.parseDouble(valorVacuna);
-                } catch (NumberFormatException e) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Escriba el valor de la vacuna como un número, por ejemplo, 15500");
-                return;
-            }
-            
-            if (valorVac < 0 || !Double.isFinite(valorVac)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Escribe un valor válido para la vacuna, de 0 en adelante.");
-            return;
-            }
-            
-        }
-        
         if (notasMedicas.isBlank()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Escribe las notas médicas de la consulta.");
             return;
@@ -1050,7 +1023,7 @@ public class VistaVet extends javax.swing.JFrame {
 
         try {
             controlador.registrarConsulta(idMascota, cedulaVeterinario,
-                    diagnostico, tratamiento, notasMedicas, nombreVacuna, valorVac);
+                    diagnostico, tratamiento, notasMedicas, nombreVacuna);
             cargarConsultasParaCobrar();
             JOptionPane.showMessageDialog(this, "Consulta registrada correctamente.");
             
@@ -1058,8 +1031,7 @@ public class VistaVet extends javax.swing.JFrame {
             cbVeterinarioConsulta.setSelectedIndex(-1);
             txtDiagnostico.setText("");
             txtTratamiento.setText("");
-            txtVacunaNombre.setText("");
-            txtVacunaPrecio.setText("");
+            cbVacunaConsulta.setSelectedIndex(0);
             txtNotasMedicas.setText("");
             
         } catch (IllegalArgumentException e) {
@@ -1212,11 +1184,11 @@ public class VistaVet extends javax.swing.JFrame {
     }
     
     public String getVacunaConsulta(){
-        return txtVacunaNombre.getText();
-    }
-    
-    public String getValorVacuna(){
-        return txtVacunaPrecio.getText();
+        int indice = cbVacunaConsulta.getSelectedIndex();
+        if (indice <= 0) {
+            return "";
+        }
+        return vacunasDisponibles.get(indice - 1).getNombre();
     }
     
     public String getNotasMedicas(){
@@ -1262,6 +1234,7 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarMascota;
     private javax.swing.JComboBox<String> cbConsultaCobro;
     private javax.swing.JComboBox<String> cbTipoMascota;
+    private javax.swing.JComboBox<String> cbVacunaConsulta;
     private javax.swing.JComboBox<String> cbVeterinarioCita;
     private javax.swing.JComboBox<String> cbVeterinarioConsulta;
     private javax.swing.JCheckBox chkSedacion;
@@ -1280,7 +1253,6 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -1326,7 +1298,5 @@ public class VistaVet extends javax.swing.JFrame {
     private javax.swing.JTextField txtRazaMascota;
     private javax.swing.JTextField txtTelefonoCliente;
     private javax.swing.JTextField txtTratamiento;
-    private javax.swing.JTextField txtVacunaNombre;
-    private javax.swing.JTextField txtVacunaPrecio;
     // End of variables declaration//GEN-END:variables
 }
